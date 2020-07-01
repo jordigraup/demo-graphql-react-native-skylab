@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, Dimensions } from 'react-native';
+import {registerUser } from 'stickies-client-logic'
 import {
   Login,
   Register,
@@ -25,12 +26,17 @@ export default function App() {
     setScreen(screenToSwitch);
   }
 
+  const handleRegister = (name, surname, email, password)=>{
+    registerUser (name, surname, email, password)
+    .then(()=> setScreen('login'))
+  }
+
   return (<>
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <StatusBar style="auto" />
         {screen === 'login' && <Login navigation={screenHandler} />}
-        {screen === 'register' && <Register navigation={screenHandler} />}
+        {screen === 'register' && <Register navigation={screenHandler} onSubmit={handleRegister} />}
         {screen === 'landing' && <Landing user={user} />}
         {screen === 'add-sticky' && <AddSticky user={user} navigation={screenHandler} />}
         {navBar && <NavBar navigation={screenHandler} />}

@@ -3,14 +3,14 @@ import { View, Text, TextInput, Button } from 'react-native';
 import { Header, Container } from '../commons';
 import styles from './styles';
 
-function Register({ navigation }) {
+function Register({ navigation, onSubmit }) {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function handleRegister() {
-        console.log(name, surname, email, password);
+        onSubmit(name, surname, email, password);
     }
 
     return (<>
