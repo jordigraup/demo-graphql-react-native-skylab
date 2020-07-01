@@ -4,13 +4,15 @@ const express = require('express');
 const graphqlHttp = require('express-graphql');
 const { mongoose } = require('stickies-data');
 const schema = require('./schema');
-const { jwtVerifier } = require('./middlewares');
+const { jwtVerifier, cors } = require('./middlewares');
+
 
 mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         const api = express();
 
         api.use(jwtVerifier);
+        api.use(cors);
 
         api.use('/graphql', graphqlHttp(request => ({
             schema,
